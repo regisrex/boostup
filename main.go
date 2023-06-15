@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
-	"net/smtp"
-	"os"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
+	"net/smtp"
+	"os"
 )
 
 type Body struct {
@@ -56,12 +56,13 @@ func handleRequest(c *gin.Context) {
 			"success": true,
 			"message": "Email sent successfully",
 		})
-		return
+		c.Abort()
 	}
 	c.JSON(200, gin.H{
 		"success": false,
-		"message": string(err.Error()),
+		"message": err.Error(),
 	})
+	c.Abort()
 
 }
 
